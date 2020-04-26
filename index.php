@@ -29,17 +29,62 @@ $resWay = new ResidentialWay();
 $rd66->addVehicle($bigTruck);
 $rd66->addVehicle($bike);
 $rd66->addVehicle($springPolice);
-var_dump($rd66->getCurrentVehicle());
+//var_dump($rd66->getCurrentVehicle());
 
 $pedWay->addVehicle($overboard);
 $pedWay->addVehicle($bike);
 $pedWay->addVehicle($van);
-var_dump($pedWay->getCurrentVehicle());
+//var_dump($pedWay->getCurrentVehicle());
 
 $resWay->addVehicle($bigTruck);
 $resWay->addVehicle($bike);
 $resWay->addVehicle($springPolice);
-var_dump($resWay->getCurrentVehicle());
+//var_dump($resWay->getCurrentVehicle());
+
+
+// POO - Basics | Part 4 : Exceptions
+$pinkSedan->setParkBrake(true);
+//$pinkSedan->setParkBrake(false);
+
+
+
+//TODO POO 5 INTERFACE
+require_once 'ElectricBike.php';
+require_once 'LightableInterface.php';
+
+//tests for Bike
+echo $bike->isIsLigthed() . "<br>";
+$bike->forward();
+echo 'speed = ' . $bike->getCurrentSpeed() . 'km/h<br>';
+echo $bike->isIsLigthed() . "<br>";
+$bike->brake();
+echo 'speed = ' . $bike->getCurrentSpeed() . 'km/h<br>';
+echo $bike->isIsLigthed() . "<br>";
+
+//tests for Car
+echo $pinkSedan->isIsLigthed() . "<br>";
+$pinkSedan->switchOn();
+echo $pinkSedan->isIsLigthed() . "<br>";
+$pinkSedan->switchOff();
+echo $pinkSedan->isIsLigthed() . "<br>";
+
+/*tests for Skateboard => THIS THROW AN ERROR
+echo $overboard->isIsLigthed();
+$overboard->switchOn();
+echo $overboard->isIsLigthed();
+$overboard->switchOff();
+echo $overboard->isIsLigthed();
+*/
+
+
+
+
+
+
+
+
+
+
 
 /*echo $bike->forward();
 echo '<br> Vitesse du vélo : ' . $bike->getCurrentSpeed() . ' km/h<br>';
@@ -67,4 +112,33 @@ echo $bigTruck->filling() . '<br>';
 $bigTruck->setLoad(300);
 echo 'new load: ' . $bigTruck->getLoad() . '<br>';
 echo $bigTruck->filling() . '<br>';
-echo '<hr>';*/
+echo '<hr>';
+
+try{
+    echo $pinkSedan->start();
+} catch (Exception $e){
+    echo 'Exeption received :' . $e->getMessage() . '<br>';
+    $pinkSedan->setParkBrake(false);
+    echo $pinkSedan->start();
+} finally {
+    echo 'Ma voiture roule comme un donut';
+}
+
+
+// POO 5 INTERFACE | cours
+require_once 'ChargingStation.php';
+require_once 'ElectricBike.php';
+
+$charginStation = new ChargingStation();
+$tazerbike = new ElectricBike('black', 1);
+
+//set charge
+$tazerbike->setCharge(0);
+echo 'Charge set to ' . $tazerbike->getCharge() . "%<br>";
+//full charge
+$charginStation->fullCharge($tazerbike);
+echo 'Charge is now ' . $tazerbike->getCharge() . "%<br>";
+//discharge 15%
+$tazerbike->Unload(15);
+echo 'Charge is now ' . $tazerbike->getCharge() . "%<br>";
+*/
